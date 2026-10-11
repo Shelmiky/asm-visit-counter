@@ -1,0 +1,4 @@
+*.asm text eol=lf
+*.py text eol=lf
+Makefile text eol=lf
+*.md text eol=lf

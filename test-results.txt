@@ -1,0 +1,31 @@
+python3 check.py
+Missing count.txt; three independent launches:
+  Visits: 1; count.txt = 1
+  Visits: 2; count.txt = 2
+  Visits: 3; count.txt = 3
+  b'' -> 1
+  b'0' -> 1
+  b'9\n' -> 10
+  b'99' -> 100
+  b'999\n' -> 1000
+  b'00000000000000000009\n' -> 10
+  b'1234567890123456789\n' -> 1234567890123456790
+  b'18446744073709551614\n' -> 18446744073709551615
+Invalid input and overflow are rejected without changing the file:
+  b'abc\n': rejected; unchanged
+  b'-1\n': rejected; unchanged
+  b'1x\n': rejected; unchanged
+  b'\n': rejected; unchanged
+  b'1\n2\n': rejected; unchanged
+  b' 3\n': rejected; unchanged
+  b'1\x00': rejected; unchanged
+  b'1\r\n': rejected; unchanged
+  b'99999999999999999999999999999999': rejected; unchanged
+  b'0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000': rejected; unchanged
+  b'18446744073709551615\n': rejected; unchanged
+  b'18446744073709551616\n': rejected; unchanged
+  count.txt is a directory: handled
+  read-only file (unprivileged user): handled; unchanged
+  stdout write failure: reported; saved count.txt = 8
+  40 concurrent launches: values 1..40; count.txt = 40
+PASS: 27 checks
